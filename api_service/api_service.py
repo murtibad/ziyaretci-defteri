@@ -4,12 +4,12 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-DATABASE_URL = os.getenv(postgresql://visitorbook_db_qyav_user:rxnUOqnG8T7HaF4sWME5oOYwQjdhCIhN@dpg-d4270cmuk2gs73bbi3l0-a/visitorbook_db_qyav)
+# ENV'DEN OKU — KODA URL YAPIŞTIRMA!
+DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
-    # Render'a koyunca Environment'tan gelecek; lokalde boşsa bilerek hata verelim
     raise RuntimeError("DATABASE_URL environment variable is required")
 
-# Render/managed PG'de ssl gerekebilir
+# Render gibi yönetilen PG'lerde ssl gereklidir
 if "sslmode" not in DATABASE_URL:
     DATABASE_URL += "?sslmode=require"
 
