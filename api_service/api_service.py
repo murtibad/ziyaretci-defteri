@@ -1,5 +1,5 @@
 import os
-import psycopg2
+import psycopg
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -14,7 +14,7 @@ if "sslmode" not in DATABASE_URL:
     DATABASE_URL += "?sslmode=require"
 
 def get_conn():
-    return psycopg2.connect(DATABASE_URL)
+    return psycopg.connect(postgresql://visitorbook_db_qyav_user:rxnUOqnG8T7HaF4sWME5oOYwQjdhCIhN@dpg-d4270cmuk2gs73bbi3l0-a/visitorbook_db_qyav)
 
 # Tabloyu ilk çalıştırmada oluştur
 with get_conn() as conn:
