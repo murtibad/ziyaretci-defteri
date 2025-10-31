@@ -4,17 +4,18 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# ENV'DEN OKU — KODA URL YAPIŞTIRMA!
+# Ortam değişkeninden DATABASE_URL al
 DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL environment variable is required")
 
-# Render gibi yönetilen PG'lerde ssl gereklidir
+# Render gibi platformlarda sslmode zorunlu olabilir
 if "sslmode" not in DATABASE_URL:
     DATABASE_URL += "?sslmode=require"
 
 def get_conn():
-    return psycopg.connect(postgresql://visitorbook_db_qyav_user:rxnUOqnG8T7HaF4sWME5oOYwQjdhCIhN@dpg-d4270cmuk2gs73bbi3l0-a/visitorbook_db_qyav)
+    return psycopg.connect(DATABASE_URL)
+
 
 # Tabloyu ilk çalıştırmada oluştur
 with get_conn() as conn:
