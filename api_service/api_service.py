@@ -4,20 +4,19 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Ortam değişkeninden DATABASE_URL al
+# DATABASE_URL KODDA YOK; ENV'DEN OKUNUR
 DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL environment variable is required")
 
-# Render gibi platformlarda sslmode zorunlu olabilir
+# Render/managed PG için sslmode genelde gerekir
 if "sslmode" not in DATABASE_URL:
     DATABASE_URL += "?sslmode=require"
 
 def get_conn():
     return psycopg.connect(DATABASE_URL)
 
-
-# Tabloyu ilk çalıştırmada oluştur
+# İlk açılışta tabloyu oluştur
 with get_conn() as conn:
     with conn.cursor() as cur:
         cur.execute("""
@@ -60,5 +59,4 @@ def add_ziyaretci():
     return jsonify({"mesaj": f"Merhaba {isim} ({sehir}) kaydedildi"}), 201
 
 if __name__ == "__main__":
-    # Lokal denemede 5000 portu
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
