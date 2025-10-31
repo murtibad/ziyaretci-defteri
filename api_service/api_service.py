@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv(postgresql://visitorbook_db_qyav_user:rxnUOqnG8T7HaF4sWME5oOYwQjdhCIhN@dpg-d4270cmuk2gs73bbi3l0-a/visitorbook_db_qyav)
 if not DATABASE_URL:
     # Render'a koyunca Environment'tan gelecek; lokalde boşsa bilerek hata verelim
     raise RuntimeError("DATABASE_URL environment variable is required")
